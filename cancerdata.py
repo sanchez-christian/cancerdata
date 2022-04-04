@@ -8,17 +8,19 @@ def render_main():
 
 @app.route("/p1")
 def render_page1():
-    return render_template('data.html')
+    format_dict_as_graph_points()
+    return render_template('numbers.html')
     
-if __name__=="__main__":
-    app.run(debug=False)
+
 
 def format_dict_as_graph_points():
     with open('cancer.json') as numbers_data:
-    graph_points = ""
+        graph_points = ""
     for key in data:
         #{ label: "India", y: 7.1 },
         graph_points = graph_points + Markup('{ y: ' + str(data[key]) + ', label: "' + key + '" }, ')
     graph_points = graph_points[:-2] #this will remove the last comma and space
     print(graph_points)
 
+if __name__=="__main__":
+    app.run(debug=False)
