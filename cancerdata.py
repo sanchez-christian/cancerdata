@@ -1,4 +1,5 @@
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, Markup
+import json
 
 app = Flask(__name__) #__name__ = "__main__" if this is the file that was run.  Otherwise, it is the name of the file (ex. webapp)
 
@@ -6,21 +7,32 @@ app = Flask(__name__) #__name__ = "__main__" if this is the file that was run.  
 def render_main():
     return render_template('index.html')
 
-@app.route("/p1")
+@app.route("/numbers")
 def render_page1():
     format_dict_as_graph_points()
     return render_template('numbers.html')
+
+@app.route("/rates")
+def render_page2():
+    format_dict_as_graph_points()
+    return render_template('rates.html')
     
 
 
 def format_dict_as_graph_points():
     with open('cancer.json') as numbers_data:
-        graph_points = ""
-    for key in data:
+        data = json.load(numbers_data)
+    graph_points = ""
+#    state = request.args['State']
+#    num = 0
+    for s in data:
+#        if s["State"] == state:
+#            num = s["Numbers"]
         #{ label: "India", y: 7.1 },
-        graph_points = graph_points + Markup('{ y: ' + str(data[key]) + ', label: "' + key + '" }, ')
-    graph_points = graph_points[:-2] #this will remove the last comma and space
+        graph_points = graph_points + Markup('{label: "' + s["State"] + '" , y: ' + str(s["State"]) + '},' )
+    graph_points = graph_points[:-1] #this will remove the last comma and space
     print(graph_points)
+    return render_template("numbers.html", numbers = graph_points)
 
 if __name__=="__main__":
-    app.run(debug=False)
+    app.run(debug=True)
