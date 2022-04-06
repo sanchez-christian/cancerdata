@@ -9,12 +9,10 @@ def render_main():
 
 @app.route("/numbers")
 def render_page1():
-    format_dict_as_graph_points()
-    return render_template('numbers.html')
+    return render_template('numbers.html', numbers = format_dict_as_graph_points())
 
 @app.route("/rates")
 def render_page2():
-    format_dict_as_graph_points()
     return render_template('rates.html')
     
 
@@ -32,7 +30,7 @@ def format_dict_as_graph_points():
         graph_points = graph_points + Markup('{label: "' + s["State"] + '" , y: ' + str(s["Total"]["Number"]) + '},' )
     graph_points = graph_points[:-1] #this will remove the last comma and space
     print(graph_points)
-    return render_template("numbers.html", numbers = graph_points)
+    return graph_points #will take it and send it back to line 12
 
 if __name__=="__main__":
     app.run(debug=True)
