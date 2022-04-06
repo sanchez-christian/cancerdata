@@ -29,7 +29,7 @@ def format_dict_as_graph_points():
 #        if s["State"] == state:
 #            num = s["Numbers"]
         #{ label: "India", y: 7.1 },
-        graph_points = graph_points + Markup('{label: "' + s["State"] + '" , y: ' + str(s["State"]) + '},' )
+        graph_points = graph_points + Markup('{label: "' + s["State"] + '" , y: ' + str(s["Total"]["Number"]) + '},' )
     graph_points = graph_points[:-1] #this will remove the last comma and space
     print(graph_points)
     return render_template("numbers.html", numbers = graph_points)
