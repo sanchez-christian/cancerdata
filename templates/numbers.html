@@ -6,7 +6,7 @@
 
 {% block content %}
   <head><title>Cancer Data</title>
- header("Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure");
+<!--header("Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure");-->
 </head>
 <body>
 
@@ -25,11 +25,11 @@
      text: "Cancer Death Totals by State 2007-2013"
    },
    axisY: {
-     title: "Growth Rate (in %)",
-     suffix: "%"
+     title: "Total Number (in People)",
+     suffix: " People"
    },
    axisX: {
-     title: "Countries"
+     title: "States"
    },
    data: [{
      type: "column",
