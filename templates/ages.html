@@ -5,5 +5,55 @@
 {% block title %}Ages{% endblock %}
 
 {% block content %}
-<!--page content-->
+<head><title>Cancer Data</title>
+    <!--header("Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure");-->
+    </head>
+    <body>
+    
+        <h1>Cancer Data</h1>
+            <p>
+                Here
+            </p>
+
+            options=""
+            for s in states:
+                options += Markup("<option value=\"" + s["State"] + "\">" + s + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
+            return options        
+              <script>
+                window.onload = function () {
+     
+     var chart = new CanvasJS.Chart("chartContainer", {
+       animationEnabled: true,
+       theme: "light2", // "light1", "light2", "dark1", "dark2"
+       title: {
+         text: "Cancer Death Totals by State 2007-2013"
+       },
+       axisY: {
+         title: "Total Number (in People)",
+         suffix: " People"
+       },
+       axisX: {
+         title: "States"
+       },
+       data: [{
+         type: "column",
+         //yValueFormatString: "#,##0.0#\"%\"",
+         dataPoints: [
+           {{ages}}
+           
+         ]
+       }]
+     });
+     chart.render();
+      
+     }
+              </script>
+    
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
+    
+    
+    
+    </body>
 {% endblock %}

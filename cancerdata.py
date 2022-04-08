@@ -1,4 +1,5 @@
 from flask import Flask, url_for, render_template, Markup
+from flask import request
 import json
 
 app = Flask(__name__) #__name__ = "__main__" if this is the file that was run.  Otherwise, it is the name of the file (ex. webapp)
@@ -14,6 +15,14 @@ def render_page1():
 @app.route("/rates")
 def render_page2():
     return render_template('rates.html', rates = format_dict_as_graph_points2())
+
+@app.route("/ages")
+def render_page3():
+    if "State" not in request.args:
+        return render_template('ages.html')
+    else:
+        user_input = request.args["State"]
+        return render_template('ages.html', ages = format_dict_as_graph_points3())
     
 
 
@@ -41,6 +50,17 @@ def format_dict_as_graph_points2():
     graph_rates = graph_rates[:-1] #this will remove the last comma and space
     print(graph_rates)
     return graph_rates #will take it and send it back to line 12
+
+def format_dict_as_graph_points3():
+    state = request.args["State"]
+    with open('cancer.json') as ages_data:
+        state = json.load(ages_data)
+    output = "Could not find state, try again"
+    for s in state:
+        if s["State"] == state:
+            output = Markup ('{label: "' + s["State"] + '" , y: ' + str(s["Rates"]["Age"]) + '},' )
+        output = output[:-1]
+    return output
 
 if __name__=="__main__":
     app.run(debug=True)
