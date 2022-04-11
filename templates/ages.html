@@ -14,11 +14,16 @@
             <p>
                 Here
             </p>
-
-            options=""
-            for s in states:
-                options += Markup("<option value=\"" + s["State"] + "\">" + s + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
-            return options        
+<form>
+  <label for="state">Choose a state: 
+</label>
+  <select name="state" id="state">
+    {{ages_dropdown}}
+  </select>
+  <br><br>
+  <input type="submit" value="Show Data">
+</form>
+                  
               <script>
                 window.onload = function () {
      

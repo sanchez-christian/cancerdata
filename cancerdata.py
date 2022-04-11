@@ -19,10 +19,10 @@ def render_page2():
 @app.route("/ages")
 def render_page3():
     if "State" not in request.args:
-        return render_template('ages.html')
+        return render_template('ages.html', ages_dropdown = dropdown())
     else:
         user_input = request.args["State"]
-        return render_template('ages.html', ages = format_dict_as_graph_points3())
+        return render_template('ages.html', ages = format_dict_as_graph_points3(), ages_dropdown = dropdown())
     
 
 
@@ -60,7 +60,18 @@ def format_dict_as_graph_points3():
         if s["State"] == state:
             output = Markup ('{label: "' + s["State"] + '" , y: ' + str(s["Rates"]["Age"]) + '},' )
         output = output[:-1]
+    print(output)
     return output
 
+def dropdown():
+    with open('cancer.json') as ages_dropdown:
+        states = json.load(ages_dropdown)
+    options=""
+    for s in states:
+        options += Markup("<option value=\"" + s["State"] + "\">" + s + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
+    print(options)
+    return options
+
+    
 if __name__=="__main__":
     app.run(debug=True)
