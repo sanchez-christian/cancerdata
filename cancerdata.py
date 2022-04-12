@@ -18,10 +18,10 @@ def render_page2():
 
 @app.route("/ages")
 def render_page3():
-    if "State" not in request.args:
+    if "state" not in request.args:
         return render_template('ages.html', ages_dropdown = dropdown())
     else:
-        user_input = request.args["State"]
+        user_input = request.args["state"]
         return render_template('ages.html', ages = format_dict_as_graph_points3(), ages_dropdown = dropdown())
     
 
@@ -52,14 +52,15 @@ def format_dict_as_graph_points2():
     return graph_rates #will take it and send it back to line 12
 
 def format_dict_as_graph_points3():
-    state = request.args["State"]
+    state_select = request.args["state"]
     with open('cancer.json') as ages_data:
         state = json.load(ages_data)
     output = "Could not find state, try again"
     for s in state:
-        if s["State"] == state:
-            output = Markup ('{label: "' + s["State"] + '" , y: ' + str(s["Rates"]["Age"]) + '},' )
-        output = output[:-1]
+        if s["State"] == state_select:
+            for a in s["Rates"]["Age"]:
+                output = Markup ('{label: "' + a + '" , y: ' + str(s["Rates"]["Age"][a]) + '},' )
+    output = output[:-1]
     print(output)
     return output
 
@@ -68,8 +69,7 @@ def dropdown():
         states = json.load(ages_dropdown)
     options=""
     for s in states:
-        options += Markup("<option value=\"" + s["State"] + "\">" + s + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
-    print(options)
+        options += Markup("<option value=\"" + s["State"] + "\">") #Use Markup so <, >, " are not escaped lt, gt, etc.
     return options
 
     

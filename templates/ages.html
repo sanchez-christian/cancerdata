@@ -15,11 +15,12 @@
                 Here
             </p>
 <form>
-  <label for="state">Choose a state: 
+  <label for="states">Choose a state: 
 </label>
-  <select name="state" id="state">
-    {{ages_dropdown}}
-  </select>
+  <input list="state" name="state" id="states">
+    <datalist id="state">
+      {{ages_dropdown}}
+    </datalist>
   <br><br>
   <input type="submit" value="Show Data">
 </form>
@@ -53,10 +54,10 @@
       
      }
               </script>
-    
+    {%if ages%}<!--If ages is defined-->
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    
+    {%endif%}
     
     
     
