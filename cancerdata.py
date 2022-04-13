@@ -22,7 +22,7 @@ def render_page3():
         return render_template('ages.html', ages_dropdown = dropdown())
     else:
         user_input = request.args["state"]
-        return render_template('ages.html', ages = format_dict_as_graph_points3(), ages_dropdown = dropdown())
+        return render_template('ages.html', ages = format_dict_as_graph_points3(), ages_dropdown = dropdown(), state = request.args["state"])
     
 
 
@@ -55,13 +55,14 @@ def format_dict_as_graph_points3():
     state_select = request.args["state"]
     with open('cancer.json') as ages_data:
         state = json.load(ages_data)
-    output = "Could not find state, try again"
+    output = ""
     for s in state:
         if s["State"] == state_select:
             for a in s["Rates"]["Age"]:
-                output = Markup ('{label: "' + a + '" , y: ' + str(s["Rates"]["Age"][a]) + '},' )
+                output += Markup ('{label: "' + a + '" , y: ' + str(s["Rates"]["Age"][a]) + '},' )
     output = output[:-1]
     print(output)
+    print(state_select)
     return output
 
 def dropdown():
