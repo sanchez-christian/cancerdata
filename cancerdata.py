@@ -39,7 +39,7 @@ def format_dict_as_graph_points():
         graph_numbers = graph_numbers + Markup('{label: "' + s["State"] + '" , y: ' + str(s["Total"]["Number"]) + '},' )
     graph_numbers = graph_numbers[:-1] #this will remove the last comma and space
     print(graph_numbers)
-    return graph_numbers #will take it and send it back to line 12
+    return graph_numbers #will take it and send it back to line 13
 
 def format_dict_as_graph_points2():
     with open('cancer.json') as rates_data:
